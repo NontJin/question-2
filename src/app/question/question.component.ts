@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
+import * as _ from "lodash";
 
 @Component({
   selector: 'app-question',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QuestionComponent implements OnInit {
 
-  constructor() { }
+  dataTable: any[] = [];
+  dataTableBack: any[] = [];
 
-  ngOnInit(): void {
+  textFil: string = '';
+
+  constructor(
+    private apiService: ApiService
+  ) { }
+
+  async ngOnInit() {
+    this.dataTable = await this.apiService.getData().toPromise();
+    this.dataTableBack = _.cloneDeep(this.dataTable);
+  }
+
+  onTextChange() {
+    this.dataTable = this.dataTableBack.filter(item => item.includes(this.textFil));
   }
 
 }

@@ -1,1 +1,17 @@
-<p>question works!</p>
+<div class="ui-g">
+    <div class="ui-g-6"></div>
+    <div class="ui-g-6">
+        <p-table [value]="dataTable">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <input pInputText type="text" [(ngModel)]="textFil" (keyup)="onTextChange()">
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr [pSelectableRow]="rowData">
+                    <td>{{ rowData }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
